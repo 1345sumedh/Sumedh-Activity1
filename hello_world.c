@@ -2,6 +2,6 @@
 #include<stdio.h>
 int main()
 {
-  printf("Sumedh Hagaldivte");
+  printf("Sumedh Hagaldivte\n");
   return (0);
 }
