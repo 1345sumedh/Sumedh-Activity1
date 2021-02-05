@@ -1,1 +1,29 @@
 //WAP to find the volume of a tromboloid using 4 functions.
+#include<stdio.h>
+int main()
+{
+int ask_value()
+{
+float a;
+printf("Enter the dimensions:\n");
+scanf("%f",&a);
+return(a);
+}
+float area(float h,float d,float b)
+{
+float ar;
+ar=((h*b*d)+(d/b))/3;
+return(ar);
+}
+void show(float ar)
+{
+printf("The area is: %f",ar);
+}
+int main()
+{
+float h,d,b,ar;
+f=ask_value();d=ask_value();b=ask_vlaue();
+ar = area(h,b,d);
+show(ar);
+return 0;
+}
