@@ -15,9 +15,9 @@ int add(int a,int b)
     return (sum);
 }
 
-void show(int sum)
+void show(int sum,int a,int b)
 {
-    printf("The addition is: %d",sum);
+    printf("The addition of %d and %d is: %d",a,b,sum);
 }
 
 
@@ -26,6 +26,7 @@ int main()
     int a,b,sum;
     a=ask_value();b=ask_value();
     sum = add(a,b);
-    show(sum);
+    show(sum,a,b);
     return 0;
 }
+
