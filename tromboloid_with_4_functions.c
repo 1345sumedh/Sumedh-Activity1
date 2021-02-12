@@ -17,7 +17,7 @@ float area(float h,float d,float b)
 
 void show(float ar)
 {
-    printf("The area is: %f",ar);
+    printf("The area of the figure is : %f",ar);
 }
 
 
