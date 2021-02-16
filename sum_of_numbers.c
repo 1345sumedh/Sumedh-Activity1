@@ -7,18 +7,18 @@ int ask_n()
     return n1;
 }
 
-void ask_value(int n, float a[])
+void ask_value(int n, int a[])
 {
     printf("enter %d elements:\n",n);
     for(int i =0;i<n;i++)
     {
-        scanf("%f",&a[i]);
+        scanf("%d",&a[i]);
     }
 }
 
-float cal(float a[],int n)
+int cal(int a[],int n)
 {
-    float sum1=0;
+    int sum1=0;
     for(int i=0;i<n;i++)
     {
         sum1=sum1+a[i];
@@ -26,18 +26,18 @@ float cal(float a[],int n)
     return sum1;
 }
 
-void show(float s)
+void show(int s)
 {
-    printf("Sum of n terms is: %f",s);
+    printf("Sum of n terms is: %d",s);
 }
 
 
 int main()
 {
     int n = ask_n();
-    float a[n];
+    int a[n];
     ask_value(n,a);
-    float sum = cal(a,n);
+    int sum = cal(a,n);
     show(sum);
     return 0;
 }
