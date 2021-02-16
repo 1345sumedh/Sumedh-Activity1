@@ -8,11 +8,11 @@ struct frac
     int d;
 };
 
-float ask_value()
+int  ask_value()
 {
-    float  a ;
+    int  a ;
     printf("enter the value:\n");
-    scanf("%f",&a);
+    scanf("%d",&a);
     return (a);
 }
 
