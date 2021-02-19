@@ -1,6 +1,7 @@
 //WAP to find the sum of two fractions.
 #include<stdio.h>
 #include<stdlib.h>
+int gcd(int, int);
 
 struct frac
 {
@@ -16,29 +17,46 @@ int  ask_value()
     return (a);
 }
 
+struct frac simp(struct frac f, int c)
+{
+    printf(" hiii %d",c);
+    f.n = f.n/c;
+    f.d = f.d/c;
+    return f;
+}
+
 struct frac cal(struct frac f1, struct frac f2)
 {
-    struct frac sum ={((f1.n*f2.d)+(f2.n*f1.d)),(f1.d*f2.d)};
-    int max,max1;
-    if(sum.n==sum.d)
-    max1 = sum.d;
+    struct frac sum1;
+    sum1.n = (f1.n*f2.d)+(f2.n*f1.d);
+    sum1.d = (f1.d*f2.d);
+    int ma = gcd(sum1.n,sum1.d);
+    //struct fin = simp(sum1,ma);
+    return simp(sum1,ma);
+}
+
+int gcd(int x,int y)
+{
+   int max,max1;
+    if(x==y)
+    max1 = y;
     
-    else if(sum.n < sum.d)
-    max = sum.d;
+    else if(x < y)
+    max = y;
     
     else
-    max = sum.n;
-    for(int i=max;i>1;i--)
+    max = x;
+    for(int i=max;i>=1;i--)
     {
-        if(sum.n%i==0 && sum.d%i == 0)
+        if(x%i==0 && y%i == 0)
         {
             max1 =i;
+            
             break;
         }
-    }
-    sum.n = sum.n / max1;
-    sum.d = sum.d /max1;
-    return sum;
+    } 
+    
+    return(max1);
 }
 
 void show(struct frac addi,struct frac f1,struct frac f2)
