@@ -19,7 +19,6 @@ int  ask_value()
 
 struct frac simp(struct frac f, int c)
 {
-    printf(" hiii %d",c);
     f.n = f.n/c;
     f.d = f.d/c;
     return f;
@@ -27,11 +26,10 @@ struct frac simp(struct frac f, int c)
 
 struct frac cal(struct frac f1, struct frac f2)
 {
-    struct frac sum1;
+    struct frac sum1; int ma;
     sum1.n = (f1.n*f2.d)+(f2.n*f1.d);
     sum1.d = (f1.d*f2.d);
-    int ma = gcd(sum1.n,sum1.d);
-    //struct fin = simp(sum1,ma);
+    ma = gcd(sum1.n,sum1.d);
     return simp(sum1,ma);
 }
 
@@ -51,7 +49,6 @@ int gcd(int x,int y)
         if(x%i==0 && y%i == 0)
         {
             max1 =i;
-            
             break;
         }
     } 
@@ -66,9 +63,9 @@ void show(struct frac addi,struct frac f1,struct frac f2)
 
 int main()
 {
-    struct frac f1,f2;
+    struct frac f1,f2,addi;
     f1.n=ask_value();f1.d=ask_value();f2.n=ask_value();f2.d=ask_value();
-    struct frac addi = cal(f1,f2);
+    addi = cal(f1,f2);
     show (addi,f1,f2);
     return 0;
 }
