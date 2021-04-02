@@ -1,0 +1,86 @@
+#include<stdio.h>
+# include<math.h>
+struct point
+{
+	float x;
+	float y;
+};
+
+
+struct ops
+{
+	struct point ver[3];
+};
+
+
+int input_n()
+{
+	int n1;
+	scanf("%d",&n1);
+	return n1;
+}
+
+void inputs_points(struct ops *pac)
+{
+	for(int i=0;i<3;i++)
+	{
+		scanf("%f %f",&pac->ver[i].x,&pac->ver[i].y);
+	}
+}
+
+float area(float a,float b,float c)
+{
+	float area;
+	if(a>b)
+	{
+		if(a>c)
+			area= b*c;
+
+		else
+			area=a*b;
+	}
+
+	else if(b>c)
+		area = a*c;
+	
+	else
+		area =a*b;
+
+	return area;
+}
+
+
+float cal_a(struct ops pac)
+{
+	float s1,s2,s3;
+	s1= sqrt(  ((pac.ver[1].x - pac.ver[0].x)*(pac.ver[1].x - pac.ver[0].x))+ ((pac.ver[1].y - pac.ver[0].y)*(pac.ver[1].y - pac.ver[0].y)) );
+	s2= sqrt(  ((pac.ver[2].x - pac.ver[1].x)*(pac.ver[2].x - pac.ver[1].x))+ ((pac.ver[2].y - pac.ver[1].y)*(pac.ver[2].y - pac.ver[1].y)) );
+	s3= sqrt(  ((pac.ver[2].x - pac.ver[0].x)*(pac.ver[2].x - pac.ver[0].x))+ ((pac.ver[2].y - pac.ver[0].y)*(pac.ver[2].y - pac.ver[0].y)) );
+	return area(s1,s2,s3);
+}
+
+void show(struct ops pac,float res)
+{
+
+		printf("Area of the rectangle with vertices ");
+		printf("(%.1f,%.1f),(%.1f,%.1f),(%.1f,%.1f) is %.1f",pac.ver[0].x,pac.ver[0].y,pac.ver[1].x,pac.ver[1].y,pac.ver[2].x,pac.ver[2].y,res);
+
+	printf("\n");
+}
+
+int main()
+{
+	int n = input_n(); 
+	struct ops a[100]; 
+	float ans[100];
+	for(int i=0;i<n;i++)
+	{
+		inputs_points(&a[i]);
+	}
+	for(int j=0;j<n;j++)
+	{
+		ans[j]=cal_a(a[j]);
+		show(a[j],ans[j]);
+	}
+	return 0;
+}
