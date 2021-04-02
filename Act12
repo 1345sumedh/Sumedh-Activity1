@@ -1,0 +1,110 @@
+#include<stdio.h>
+
+struct frac
+{
+    int n;
+    int d;
+};
+
+struct ops
+{
+    int nd;
+    struct frac dv[100];
+
+};
+
+int ask_n()
+{
+    int n1;
+    scanf("%d",&n1);
+    return n1;
+}
+
+void input_fracs(struct ops *pac)
+{
+
+    scanf("%d",&pac->nd); 
+    for(int i=0;i<pac->nd;i++)
+    {
+ 
+        pac->dv[i].n=1;
+        scanf("%d",&pac->dv[i].d); 
+    }
+}
+
+int gcd (int x,int y)
+{
+    int max,max1;
+    if(x==y)
+    max1=y;
+    
+    else if(y<x)
+    max =x;
+    
+    else
+    max=y;
+    
+    for(int i= max;i>=1;i--)
+    {
+        if(x%i==0 && y%i==0)
+        {
+            max1=i;
+            break;
+        }
+    }
+    return (max1);
+}
+
+struct frac simp(struct frac fin,int c)
+{
+    fin.n=fin.n/c;
+    fin.d=fin.d/c;
+    return fin;
+}
+
+struct frac cal_fracs(struct ops *pac)
+{
+    
+    struct frac sum1;
+    sum1.n= pac->dv[0].n; sum1.d = pac->dv[0].d;
+    int ma;
+    for(int i=1;i<pac->nd;i++)
+    {
+        sum1.n = (sum1.n*pac->dv[i].d)+(pac->dv[i].n*sum1.d);
+        sum1.d= (sum1.d*pac->dv[i].d);
+    }
+    ma= gcd(sum1.n,sum1.d);
+    return simp(sum1,ma);
+}
+
+void show(struct ops pac,struct frac res)
+{
+    for(int i=0;i<pac.nd-1;i++)
+    {
+        printf(" %d/%d +",pac.dv[i].n,pac.dv[i].d);
+    }
+    printf(" %d/%d ",pac.dv[pac.nd-1].n,pac.dv[pac.nd-1].d);
+    printf("= %d/%d\n",res.n,res.d);
+}
+
+
+int main()
+{
+    int n = ask_n();
+    struct frac addi[n];
+    struct ops a[100];
+    for(int i =0;i<n;i++)
+    {
+       input_fracs(&a[i]); 
+    }
+    for(int j =0;j<n;j++)
+    {
+      
+        addi[j]=cal_fracs(&a[j]);
+                show(a[j],addi[j]);
+        
+    }
+    
+    
+    return 0;
+}
