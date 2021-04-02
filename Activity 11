@@ -1,0 +1,110 @@
+#include<stdio.h>
+
+struct student
+{
+	char name[100];
+	int marks[100];
+	char grades;
+	float fmark;
+};
+
+struct gradebook
+{
+	char sub[100];
+	int ns;
+	int nm;
+	float w[100];
+	struct student std[100];
+};
+
+int input_n()
+{
+	int n1;
+	scanf("%d",&n1);
+	return n1;
+}
+
+void input_data(struct gradebook *ops)
+{
+	scanf("%s",ops->sub);
+	scanf("%d%d",&ops->ns,&ops->nm);
+	for(int i=0;i< ops->nm;i++)
+	{
+		scanf("%f",&ops->w[i]);
+	}
+	for (int j = 0; j< ops->ns;j++)
+	{
+		scanf("%s",ops->std[j].name);
+		for(int k=0;k< ops->nm ;k++)
+		{
+			scanf("%d",&ops->std[j].marks[k]);
+		}
+	}
+}
+
+char cal_grade(float ma)
+{
+	char gr;
+	if (ma>=0 && ma<60)
+		gr = 'F';
+	else if(ma>=60 && ma<70)
+		gr ='D';
+	else if(ma>=70 && ma<80)
+		gr ='C';
+	else if(ma>=80 && ma<90)
+		gr ='B';
+	else if(ma>=90 && ma<=100)
+		gr ='A';
+	return gr;
+}
+
+struct gradebook cal_res(struct gradebook *ops)
+{
+	float tw=0;
+	float sum=0;
+
+	for(int l=0;l< ops->nm;l++)
+	{
+		tw += ops->w[l];
+	}
+
+	for(int i=0;i< ops->ns;i++)
+	{
+	    sum=0;
+		for(int j=0;j< ops->nm;j++)
+		{
+			sum += (ops->w[j])*(ops->std[i].marks[j]); 
+		}
+
+		ops->std[i].fmark = sum/tw ;
+		ops->std[i].grades = cal_grade(ops->std[i].fmark);
+	}
+
+} 
+
+void show_res(struct gradebook ops)
+{
+    printf("\n%s\n",ops.sub);
+    for(int i=0;i< ops.ns ;i++)
+    {
+        printf("%s      %.2f %c\n",ops.std[i].name,ops.std[i].fmark,ops.std[i].grades);
+    }
+}
+
+
+
+int main()
+{
+	int n = input_n();
+	struct gradebook a[100];
+	for(int i =0;i<n;i++)
+	{
+		input_data(&a[i]);
+	}
+	for(int j=0;j<n;j++)
+	{
+		cal_res(&a[j]);
+		show_res(a[j]);
+	}
+	return 0;
+}
