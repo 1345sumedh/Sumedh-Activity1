@@ -1,0 +1,100 @@
+#include<stdio.h>
+#include<string.h>
+
+struct empinfo          
+{
+	char name[100];
+	float hrw; // hourly wage
+	float hr; // no of hours
+	int mins; // no of min
+	float pay; // total pay
+};
+
+int ask_n()
+{
+	int n1;
+	scanf("%d",&n1);
+	while(n1>20)
+	{
+		n1 = ask_n();
+	}
+	return n1;
+}
+
+void def(int n, struct empinfo a[])
+{
+    for(int i=0;i<n;i++)
+    {
+        a[i].hrw=0.0;
+        a[i].hr=0.0;
+        a[i].mins=0;
+        a[i].pay=0.0;
+        
+    }
+}
+
+void input_n(int n,struct empinfo pac[])
+{
+	for(int i=0 ; i<n ; i++ )
+	{
+		scanf("%s%f",pac[i].name,&pac[i].hrw);
+	}
+
+	int m;
+	scanf("%d",&m);
+
+	for( int j= 0 ; j<m;j++)
+	{
+		char temp[100];
+		int sum=0;
+		scanf("%s%d",temp,&sum);
+		for(int k=0; k<n ;k++)
+		{
+			if(strcmp(temp,pac[k].name)==0)
+			{
+				pac[k].mins = pac[k].mins+sum;
+				break;
+			}
+		}
+	}
+
+}
+
+void cal(int n , struct empinfo a[])
+{
+    for(int i =0; i<n;i++)
+    {
+        a[i].hr=(float)a[i].mins/60;
+        if(a[i].hr>0 && a[i].hr<=40)
+        {
+            a[i].pay = a[i].hr*a[i].hrw;
+        }
+        else
+        {
+            a[i].pay = 40*a[i].hrw+ ((a[i].hr-40)*1.5*a[i].hrw);
+        }
+    }
+}
+
+void display(int n, struct empinfo a[])
+{
+    printf("\n");
+    for(int i=0;i<n;i++)
+    {
+        if(a[i].mins>0)
+        {
+            printf("%s: %f hours, $%.2f\n",a[i].name,a[i].hr,a[i].pay);
+        }
+    }
+}
+
+int main()
+{
+	int n = ask_n(); 
+	struct empinfo a[n];
+	def(n,a);
+	input_n(n,a);
+	cal(n,a);
+	display(n,a);
+}
+
