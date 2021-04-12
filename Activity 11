@@ -8,6 +8,8 @@ struct student
 	float fmark;
 };
 
+
+
 struct gradebook
 {
 	char sub[100];
@@ -16,6 +18,8 @@ struct gradebook
 	float w[100];
 	struct student std[100];
 };
+
+void cal_nres(struct gradebook [],int);
 
 int input_n()
 {
@@ -42,6 +46,14 @@ void input_data(struct gradebook *ops)
 	}
 }
 
+void input_ndata(struct gradebook a[],int n)
+{
+    for(int i =0;i<n;i++)
+	{
+		input_data(&a[i]);
+	}
+}
+
 char cal_grade(float ma)
 {
 	char gr;
@@ -58,7 +70,7 @@ char cal_grade(float ma)
 	return gr;
 }
 
-struct gradebook cal_res(struct gradebook *ops)
+void cal_res(struct gradebook *ops)
 {
 	float tw=0;
 	float sum=0;
@@ -79,16 +91,33 @@ struct gradebook cal_res(struct gradebook *ops)
 		ops->std[i].fmark = sum/tw ;
 		ops->std[i].grades = cal_grade(ops->std[i].fmark);
 	}
-
 } 
 
-void show_res(struct gradebook ops)
+
+void cal_nres(struct gradebook a[],int n)
 {
-    printf("\n%s\n",ops.sub);
-    for(int i=0;i< ops.ns ;i++)
+    	for(int j=0;j<n;j++)
+	{
+		cal_res(&a[j]);
+	}
+    
+}
+
+void show_res(struct gradebook *ops)
+{
+    printf("\n%s\n",ops->sub);
+    for(int i=0;i< ops->ns ;i++)
     {
-        printf("%s      %.2f %c\n",ops.std[i].name,ops.std[i].fmark,ops.std[i].grades);
+        printf("%s      %.2f %c\n",ops->std[i].name,ops->std[i].fmark,ops->std[i].grades);
     }
+}
+
+void show_nres(struct gradebook a[],int n)
+{
+    for(int j=0;j<n;j++)
+	{
+		show_res(&a[j]);
+	}
 }
 
 
@@ -97,14 +126,8 @@ int main()
 {
 	int n = input_n();
 	struct gradebook a[100];
-	for(int i =0;i<n;i++)
-	{
-		input_data(&a[i]);
-	}
-	for(int j=0;j<n;j++)
-	{
-		cal_res(&a[j]);
-		show_res(a[j]);
-	}
+	input_ndata(a,n);
+    	cal_nres(a,n);
+    	show_nres(a,n);
 	return 0;
 }
